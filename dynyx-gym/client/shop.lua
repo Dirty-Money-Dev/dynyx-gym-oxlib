@@ -1,4 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local lib = exports['ox_lib']
 
 CreateThread(function()
     exports['qb-target']:AddBoxZone("gymnpc", config.GymNPC.pedspawn, 1.5, 1.5, {
@@ -21,41 +22,59 @@ CreateThread(function()
 
 end)
 
+-- Shop menu rewritten for Ox Lib
 RegisterNetEvent('dynyx-gym:OpenMemberBuy', function()
-    exports['qb-menu']:openMenu({
-        {
-            id = 1,
-            header = "Welcome! Please Purchase a Gym Member to workout!",
-        },
-        {
-          id = 2,
-          header = "Buy Gym Membership",
-          txt = "$"..config.GymPass.Price,
-          params = {
-              event = "dynyx-gym:LifetimeConfirm",
-          }
-      },
-    })
+  exports['ox_lib']:showMenu({
+    {
+      id = 1,
+      title = "Welcome! Please Purchase a Gym Membership to use our gym!",
+    },
+    {
+      id = 2,
+      title = "Buy Gym Membership",
+      txt = "$"..config.GymPass.Price,
+      params = {
+        event = "dynyx-gym:client:Start",
+      }
+    },
+  })
 end)
 
-RegisterNetEvent('dynyx-gym:LifetimeConfirm', function()
-    exports['qb-menu']:openMenu({
-        {
-          id = 1,
-          header = "Go Back",
-          params = {
-              event = "dynyx-gym:OpenMemberBuy",
-          }
-      },
-      {
-        id = 2,
-        header = "Confirm Purchase",
-        params = {
-            event = "dynyx-gym:client:Start",
-        }
-    },
-    })
-end)
+--RegisterNetEvent('dynyx-gym:OpenMemberBuy', function()
+--    exports['qb-menu']:openMenu({
+--        {
+--            id = 1,
+--            header = "Welcome! Please Purchase a Gym Membership to use our gym!",
+--        },
+--        {
+--          id = 2,
+--          header = "Buy Gym Membership",
+--          txt = "$"..config.GymPass.Price,
+--          params = {
+--              event = "dynyx-gym:LifetimeConfirm",
+--          }
+--      },
+--    })
+--end)
+
+--RegisterNetEvent('dynyx-gym:LifetimeConfirm', function()
+--    exports['qb-menu']:openMenu({
+--        {
+--          id = 1,
+--          header = "Go Back",
+--          params = {
+--              event = "dynyx-gym:OpenMemberBuy",
+--          }
+--      },
+--      {
+--        id = 2,
+--        header = "Confirm Purchase",
+--        params = {
+--            event = "dynyx-gym:client:Start",
+--        }
+--    },
+--    })
+--end)
 
 
 CreateThread(function()
@@ -79,7 +98,7 @@ function MakeBlips()
   SetBlipSprite (Gym, 311)
   SetBlipDisplay(Gym, 4)
   SetBlipScale  (Gym, 0.65)
-  SetBlipAsShortRange(Gym, true)
+  SetBlipAsShortRange(Gym, false)
   SetBlipColour(Gym, 7)
   BeginTextCommandSetBlipName("STRING")
   AddTextComponentSubstringPlayerName('Gym')

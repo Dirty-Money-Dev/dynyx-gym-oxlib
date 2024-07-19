@@ -202,7 +202,10 @@ function Treadmill()
       TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
        --------------------------------------------------------------------------------------------   ps-ui section
     if config.Minigame == 'ps-ui' then
-      exports['ps-ui']:Circle(function(success)
+      exports['boii_minigames']:button_mash){
+	style = 'default',
+	difficulty = 5
+	}, function(success)
         if success then
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
           exports["mz-skills"]:UpdateSkill(config.Skills.ThreadMills.skill, config.Skills.ThreadMills.amount)
@@ -211,7 +214,7 @@ function Treadmill()
           TriggerEvent('inventory:client:busy:status', false)
         else --failed
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-          QBCore.Functions.Notify("That did not feel too good..", "error")
+          QBCore.Functions.Notify("That didn't feel good...", "error")
           Wait(3000)
           TriggerServerEvent('hud:server:GainStress', config.Skills.ThreadMills.Minigame.FailedMinigameStress)
         end
@@ -250,7 +253,10 @@ function Chinup()
        ChinupsAnim()
        TriggerEvent('animations:client:EmoteCommandStart', {"chinup"}) 
     if config.Minigame == 'ps-ui' then
-      exports['ps-ui']:Circle(function(success)
+      exports['boii_minigames']:button_mash){
+	style = 'default',
+	difficulty = 5
+	}, function(success)
         if success then
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
           exports["mz-skills"]:UpdateSkill(config.Skills.Chinups.skill, config.Skills.Chinups.amount)
@@ -259,7 +265,7 @@ function Chinup()
           TriggerEvent('inventory:client:busy:status', false)
         else --failed
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-          QBCore.Functions.Notify("That did not feel too good..", "error")
+          QBCore.Functions.Notify("That didn't feel good...", "error")
           Wait(3000)
           TriggerServerEvent('hud:server:GainStress', config.Skills.Chinups.Minigame.FailedMinigameStress)
         end
@@ -298,7 +304,10 @@ function Chinup2()
       TriggerEvent('animations:client:EmoteCommandStart', {"chinup"}) 
        --------------------------------------------------------------------------------------------   ps-ui section
     if config.Minigame == 'ps-ui' then
-      exports['ps-ui']:Circle(function(success)
+      exports['boii_minigames']:button_mash){
+	style = 'default',
+	difficulty = 5
+	}, function(success)
         if success then
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
           exports["mz-skills"]:UpdateSkill(config.Skills.Chinups.skill, config.Skills.Chinups.amount)
@@ -307,7 +316,7 @@ function Chinup2()
           TriggerEvent('inventory:client:busy:status', false)
         else --failed
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-          QBCore.Functions.Notify("That did not feel too good..", "error")
+          QBCore.Functions.Notify("That didn't feel good...", "error")
           Wait(3000)
           TriggerServerEvent('hud:server:GainStress', config.Skills.Chinups.Minigame.FailedMinigameStress)
         end
@@ -346,7 +355,10 @@ function LiftWeight()
       TaskStartScenarioInPlace(ped, "world_human_muscle_free_weights", 0, true)
        --------------------------------------------------------------------------------------------   ps-ui section
     if config.Minigame == 'ps-ui' then
-      exports['ps-ui']:Circle(function(success)
+      exports['boii_minigames']:button_mash){
+	style = 'default',
+	difficulty = 5
+	}, function(success)
         if success then
           -- Stops the animation
           TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
@@ -359,7 +371,7 @@ function LiftWeight()
           -- Stops the animation
           TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-          QBCore.Functions.Notify("That did not feel too good..", "error")
+          QBCore.Functions.Notify("That didn't feel good...", "error")
           Wait(3000)
           TriggerServerEvent('hud:server:GainStress', config.Skills.LiftWeights.Minigame.FailedMinigameStress)
         end
@@ -400,7 +412,10 @@ function LiftWeight2()
       TaskStartScenarioInPlace(ped, "world_human_muscle_free_weights", 0, true)
        --------------------------------------------------------------------------------------------   ps-ui section
     if config.Minigame == 'ps-ui' then
-      exports['ps-ui']:Circle(function(success)
+      exports['boii_minigames']:button_mash){
+	style = 'default',
+	difficulty = 5
+	}, function(success)
         if success then
           TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
@@ -411,7 +426,7 @@ function LiftWeight2()
         else --failed
           TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-          QBCore.Functions.Notify("That did not feel too good..", "error")
+          QBCore.Functions.Notify("That didn't feel good...", "error")
           Wait(3000)
           TriggerServerEvent('hud:server:GainStress', config.Skills.LiftWeights.Minigame.FailedMinigameStress)
         end
@@ -451,7 +466,10 @@ function Yoga()
       TriggerEvent('animations:client:EmoteCommandStart', {"yoga"})
        --------------------------------------------------------------------------------------------   ps-ui section
     if config.Minigame == 'ps-ui' then
-      exports['ps-ui']:Circle(function(success)
+      exports['boii_minigames']:button_mash){
+	style = 'default',
+	difficulty = 5
+	}, function(success)
         if success then
           TriggerEvent('animations:client:EmoteCommandStart', {"c"})
           exports["mz-skills"]:UpdateSkill(config.Skills.Yoga.skill, config.Skills.Yoga.amount)
@@ -460,7 +478,7 @@ function Yoga()
           TriggerEvent('inventory:client:busy:status', false)
         else --failed
           TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-          QBCore.Functions.Notify("That did not feel too good..", "error")
+          QBCore.Functions.Notify("That didn't feel good...", "error")
           Wait(3000)
           TriggerServerEvent('hud:server:GainStress', config.Skills.Yoga.Minigame.FailedMinigameStress)
         end
