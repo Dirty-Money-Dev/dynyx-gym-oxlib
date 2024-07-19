@@ -8,21 +8,31 @@ This is a Advanced Gym System were players can workout to gain strength and stam
 
 ## How to Install
 1. Drag dynyx-gym into your resources folder then ensure dynyx-gym in your cfg file.
-2. Go to qb-core/shared/items.lua and paste this
-```lua
---Dynyx-Gym
-["gym_pass"]				 = {["name"] = "gym_pass", 					["label"] = "Gym Membership", 			["weight"] = 0, 		["type"] = "item", 		["image"] = "gym_pass.png", 		["unique"] = true, 		["useable"] = false, 	["shouldClose"] = false,   ["combinable"] = nil,   ["description"] = "Lifetime Gym Membership"},
+2. Go to ox_inventory/data/items.lua and paste this:
 
+```lua
+--	["gym_pass"] = {
+		label = "Gym Membership Card",
+		weight = 0,
+		stack = false,
+		close = false,
+		description = "A card verifying your gym membership status.",
+		client = {
+			image = "gym_pass.png",
+		}
+	},
 ```
-3. Go to qb-inventory or lj-inventory / html / images and add in the images I put in that images folder.
-4. Make sure to intall all the Dependencies.
+
+3. Go to ox_inventory/web/images and add in the images I put in that images folder.
+4. Make sure to install all the Dependencies.
 
 
 ## Dependencies
 # mz-skills: https://github.com/GreenSlayer/mz-skills
 # Gym MLO: https://www.gta5-mods.com/maps/mlo-pump-run-gym-add-on-sp-fivem-ragemp
-# qb-core: https://github.com/qbcore-framework/qb-core
+# Ox Inventory: https://github.com/overextended/ox_inventory
 # PS-UI: https://github.com/Project-Sloth/ps-ui
+# Ox Lib: https://github.com/overextended/ox_lib/
 OR
 # qb-lock: https://github.com/Nathan-FiveM/qb-lock
 
