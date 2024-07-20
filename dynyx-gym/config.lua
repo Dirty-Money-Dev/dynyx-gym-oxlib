@@ -12,8 +12,10 @@ config.GymNPC = {
 }
 
 config.GymPass = {
-    Price = 2500, -- Price for the Gym Membership
-    item = "gym_pass" -- The Item Name for the Gym Membership
+    TempPrice = 2500, -- Price for the Temporary Gym Membership
+    TempItem = "gympass", -- Item name for the Temporary Gym Membership
+    LifePrice = 25000, -- Price for the Lifetime Gym Membership
+    LifeItem = "life_gympass" -- Item name for Lifetime Gym Membership
 }
 
 config.Minigame = 'ps-ui' -- qb-lock / ps-ui 

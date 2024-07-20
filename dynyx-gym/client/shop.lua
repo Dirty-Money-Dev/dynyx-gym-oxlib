@@ -22,71 +22,88 @@ CreateThread(function()
 
 end)
 
--- Shop menu rewritten for Ox Lib
-RegisterNetEvent('dynyx-gym:OpenMemberBuy', function()
-  exports['ox_lib']:showMenu({
+lib.registerContext({
+  id = 'GymShopMenu',
+  title = 'Gym Membership',
+  options =
     {
-      id = 1,
-      title = "Welcome! Please Purchase a Gym Membership to use our gym!",
+      title = 'Welcome to Flex & Pump! Purchase a Gym Membership to use our equipment!',
+      disabled = true,
     },
     {
-      id = 2,
-      title = "Buy Gym Membership",
-      txt = "$"..config.GymPass.Price,
-      params = {
-        event = "dynyx-gym:client:Start",
-      }
+      title = 'Buy Temporary Pass',
+      description = "$"..config.GymPass.TempPrice,
+      event = 'dynyx-gym:client:BuyTemp'
     },
-  })
+    {
+      title = 'Buy Lifetime Pass',
+      description = "$"..config.GymPass.LifePrice,
+      event = 'dynyx-gym:client:BuyLife'
+    }
+})
+
+RegisterNetEvent("dynyx-gym:client:BuyTemp", function(data)
+  local TempItem = config.GymPass.TempItem
+  local TempPrice = config.GymPass.TempPrice
+
+  QBCore.Functions.TriggerCallback('dynyx-gym:server:TempPass', function(money)
+      if money then
+        QBCore.Functions.Progressbar('random_task', 'Processing Purchase', 3000, false, false, {
+          disableMovement = true,
+          disableCarMovement = true,
+          disableMouse = false,
+          disableCombat = true,
+        }, {
+          animDict = "missheistdockssetup1clipboard@base",
+          anim = "base",
+          flags = 8,
+        }, {}, {}, function()
+          GiveTemp(true, TempPrice, TempItem)
+          end)
+      end
+  end, TempPrice)
 end)
 
---RegisterNetEvent('dynyx-gym:OpenMemberBuy', function()
---    exports['qb-menu']:openMenu({
---        {
---            id = 1,
---            header = "Welcome! Please Purchase a Gym Membership to use our gym!",
---        },
---        {
---          id = 2,
---          header = "Buy Gym Membership",
---          txt = "$"..config.GymPass.Price,
---          params = {
---              event = "dynyx-gym:LifetimeConfirm",
---          }
---      },
---    })
---end)
+RegisterNetEvent("dynyx-gym:client:BuyLife", function(data)
+  local LifeItem = config.GymPass.LifeItem
+  local LifePrice = config.Gympass.LifePrice
 
---RegisterNetEvent('dynyx-gym:LifetimeConfirm', function()
---    exports['qb-menu']:openMenu({
---        {
---          id = 1,
---          header = "Go Back",
---          params = {
---              event = "dynyx-gym:OpenMemberBuy",
---          }
---      },
---      {
---        id = 2,
---        header = "Confirm Purchase",
---        params = {
---            event = "dynyx-gym:client:Start",
---        }
---    },
---    })
---end)
+  QBCore.Functions.TriggerCallback('dynyx-gym:server:LifePass', function(money)
+    if money then
+      QBCore.Functions.Progressbar('random_task', 'Processing Purchase', 3000, false, false, {
+        disableMovement = true,
+        disableCarMovement = true,
+        disableMouse = false,
+        disableCombat = true,
+      }, {
+        animDict = "missheistdockssetup1clipboard@base",
+        anim = "base",
+        flags = 8,
+      }, {}, {}, function()
+        GiveLife(true, LifePrice, LifeItem)
+      end)
+    end
+  end, LifePrice)
+end)
 
+local function GiveTemp(bool, TempPrice, TempItem)
+  TriggerServerEvent('dynyx-gym:server:GiveTemp', TempPrice, TempItem)
+end
+
+local function GiveLife(bool, LifePrice, LifeItem)
+  TriggerServerEvent('dynyx-gym:server:GiveLife', LifePrice, LifeItem)
+end
 
 CreateThread(function()
-    RequestModel( GetHashKey( config.GymNPC.pedname ) )
-    while ( not HasModelLoaded( GetHashKey( config.GymNPC.pedname ) ) ) do
-        Citizen.Wait( 1 )
-    end
-    gymnpc = CreatePed(1, config.GymNPC.pedhash, config.GymNPC.pedspawn, false, true)
-    FreezeEntityPosition(gymnpc, true)
-    SetEntityInvincible(gymnpc, true)
-    SetBlockingOfNonTemporaryEvents(gymnpc, true)
-    TaskStartScenarioInPlace(gymnpc, 'WORLD_HUMAN_CLIPBOARD', 0, true)
+  RequestModel( GetHashKey( config.GymNPC.pedname ) )
+  while ( not HasModelLoaded( GetHashKey( config.GymNPC.pedname ) ) ) do
+      Citizen.Wait( 1 )
+  end
+  gymnpc = CreatePed(1, config.GymNPC.pedhash, config.GymNPC.pedspawn, false, true)
+  FreezeEntityPosition(gymnpc, true)
+  SetEntityInvincible(gymnpc, true)
+  SetBlockingOfNonTemporaryEvents(gymnpc, true)
+  TaskStartScenarioInPlace(gymnpc, 'WORLD_HUMAN_CLIPBOARD', 0, true)
 end)
 
 CreateThread(function()
@@ -103,32 +120,8 @@ function MakeBlips()
   BeginTextCommandSetBlipName("STRING")
   AddTextComponentSubstringPlayerName('Gym')
   EndTextCommandSetBlipName(Gym)
-end  
-
-local function GivePass(bool, price, item)
-  TriggerServerEvent('dynyx-gym:server:GivePass', price, item)
 end
 
 
 
-RegisterNetEvent("dynyx-gym:client:Start", function(data)
-  local Item = config.GymPass.item
-  local Price = config.GymPass.Price
 
-  QBCore.Functions.TriggerCallback('dynyx-gym:server:CheckMoney', function(money)
-      if money then
-        QBCore.Functions.Progressbar('random_task', 'Processing Purchase', 3000, false, false, {
-          disableMovement = true,
-          disableCarMovement = true,
-          disableMouse = false,
-          disableCombat = true,
-        }, {
-          animDict = "missheistdockssetup1clipboard@base",
-          anim = "base",
-          flags = 8,
-        }, {}, {}, function()  
-          GivePass(true, Price, Item)
-          end)
-      end
-  end, Price)
-end)

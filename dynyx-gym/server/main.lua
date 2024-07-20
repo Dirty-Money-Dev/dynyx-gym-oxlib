@@ -1,26 +1,54 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
 
-RegisterServerEvent('dynyx-gym:server:GivePass', function(price, item)
+QBCore.Functions.CreateCallback('dynyx-gym:server:LifePass', function(source, cb, LifePrice, LifeItem)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
-
-    Player.Functions.RemoveMoney('cash', price)
-    Player.Functions.AddItem(item, 1)
-    TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], "add")
-end)
-
-QBCore.Functions.CreateCallback('dynyx-gym:server:CheckMoney',function(source, cb, price)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    local CashAmount = Player.Functions.GetMoney('cash')
+    local cashAmount = Player.Functions.GetMoney('cash')
+    local bankAmount = Player.Functions.GetMoney('bank')
     local callback = false
 
-    if CashAmount >= price then
+    if cashAmount >= LifePrice or bankAmount >= LifePrice then
         callback = true
     else
-        TriggerClientEvent('QBCore:Notify', src, 'Not Enough Money', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Not enough money!', 'error')
     end
-
     cb(callback)
+end)
+
+RegisterServerEvent('dynyx-gym:server:GiveLife', function(LifePrice, LifeItem)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+
+    if cashAmount >= LifePrice then
+        Player.Functions.RemoveMoney('cash', LifePrice)
+        Player.Functions.AddItem(LifeItem, 1)
+        TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[LifeItem], "add")
+    end
+end)
+
+QBCore.Functions.CreateCallback('dynyx-gym:server:TempPass', function(source, cb, TempPrice, TempItem)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    local cashAmount = Player.Functions.GetMoney('cash')
+    local bankAmount = Player.Functions.GetMoney('bank')
+    local callback = false
+
+    if cashAmount >= TempPrice or bankAmount >= TempPrice then
+        callback = true
+    else
+        TriggerClientEvent('QBCore:Notify', src, 'Not enough money!', 'error')
+    end
+    cb(callback)
+end)
+
+RegisterServerEvent('dynyx-gym:server:GiveTemp', function(TempPrice, TempItem)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+
+    if cashAmount >= TempPrice then
+        Player.Functions.RemoveMoney('cash', TempPrice)
+        Player.Functions.AddItem(TempItem, 1)
+        TriggerClientEvent('inventory:client:ItemBox', src, QbCore.Shared.Items[TempItem], "add")
+    end
 end)
