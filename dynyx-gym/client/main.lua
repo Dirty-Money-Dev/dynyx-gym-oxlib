@@ -202,10 +202,10 @@ function Treadmill()
       TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
        --------------------------------------------------------------------------------------------   ps-ui section
     if config.Minigame == 'ps-ui' then
-      exports['boii_minigames']:button_mash){
-	style = 'default',
-	difficulty = 5
-	}, function(success)
+      exports['boii_minigames']:button_mash({
+	      style = 'default',
+	      difficulty = 5,
+       }, function(success)
         if success then
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
           exports["mz-skills"]:UpdateSkill(config.Skills.ThreadMills.skill, config.Skills.ThreadMills.amount)
@@ -253,10 +253,10 @@ function Chinup()
        ChinupsAnim()
        TriggerEvent('animations:client:EmoteCommandStart', {"chinup"}) 
     if config.Minigame == 'ps-ui' then
-      exports['boii_minigames']:button_mash){
-	style = 'default',
-	difficulty = 5
-	}, function(success)
+      exports['boii_minigames']:button_mash({
+	      style = 'default',
+	      difficulty = 5,
+       }, function(success)
         if success then
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
           exports["mz-skills"]:UpdateSkill(config.Skills.Chinups.skill, config.Skills.Chinups.amount)
@@ -304,10 +304,10 @@ function Chinup2()
       TriggerEvent('animations:client:EmoteCommandStart', {"chinup"}) 
        --------------------------------------------------------------------------------------------   ps-ui section
     if config.Minigame == 'ps-ui' then
-      exports['boii_minigames']:button_mash){
-	style = 'default',
-	difficulty = 5
-	}, function(success)
+      exports['boii_minigames']:button_mash({
+	      style = 'default',
+	      difficulty = 5,
+       }, function(success)
         if success then
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
           exports["mz-skills"]:UpdateSkill(config.Skills.Chinups.skill, config.Skills.Chinups.amount)
@@ -355,10 +355,10 @@ function LiftWeight()
       TaskStartScenarioInPlace(ped, "world_human_muscle_free_weights", 0, true)
        --------------------------------------------------------------------------------------------   ps-ui section
     if config.Minigame == 'ps-ui' then
-      exports['boii_minigames']:button_mash){
-	style = 'default',
-	difficulty = 5
-	}, function(success)
+      exports['boii_minigames']:button_mash({
+	      style = 'default',
+	      difficulty = 5,
+       }, function(success)
         if success then
           -- Stops the animation
           TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
@@ -412,10 +412,10 @@ function LiftWeight2()
       TaskStartScenarioInPlace(ped, "world_human_muscle_free_weights", 0, true)
        --------------------------------------------------------------------------------------------   ps-ui section
     if config.Minigame == 'ps-ui' then
-      exports['boii_minigames']:button_mash){
-	style = 'default',
-	difficulty = 5
-	}, function(success)
+      exports['boii_minigames']:button_mash({
+	      style = 'default',
+	      difficulty = 5,
+       }, function(success)
         if success then
           TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
           TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
@@ -466,10 +466,10 @@ function Yoga()
       TriggerEvent('animations:client:EmoteCommandStart', {"yoga"})
        --------------------------------------------------------------------------------------------   ps-ui section
     if config.Minigame == 'ps-ui' then
-      exports['boii_minigames']:button_mash){
-	style = 'default',
-	difficulty = 5
-	}, function(success)
+      exports['boii_minigames']:button_mash({
+	      style = 'default',
+	      difficulty = 5,
+       }, function(success)
         if success then
           TriggerEvent('animations:client:EmoteCommandStart', {"c"})
           exports["mz-skills"]:UpdateSkill(config.Skills.Yoga.skill, config.Skills.Yoga.amount)
