@@ -22,7 +22,7 @@ config.Minigame = 'ps-ui' -- qb-lock / ps-ui
 
 
 config.Skills = {
-    ['Threadmills'] = {
+    ['ThreadMills'] = {
         skill = 'Stamina', -- The Type of Skill
         amount = math.random(0, 1),  -- The amount of skill rep you gain
         Stress = math.random(5, 9), -- GainStress -- You Can set the amount of Stress you gain here

@@ -2,8 +2,8 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 CreateThread(function()
   for k, v in pairs(config.Threadmills) do
-    exports['qb-target']:AddBoxZone("treadmill"..k, vector3(v.coords.x, v.coords.y, v.coords.z-1), 1, 2, {
-      name = "treadmill",
+    exports['qb-target']:AddBoxZone("threadmill"..k, vector3(v.coords.x, v.coords.y, v.coords.z-1), 1, 2, {
+      name = "threadmill",
       heading = 300,
       debugPoly = false,
       minZ = 30.0,
@@ -12,7 +12,7 @@ CreateThread(function()
       options = {
         {
           type = "client",
-          event = "dynyx-gym:treadmill",
+          event = "dynyx-gym:threadmill",
           icon = "fas fa-person-running",
           label = 'Use Treadmill'
         },
@@ -110,18 +110,20 @@ CreateThread(function()
     end
 end)
 
-RegisterNetEvent('dynyx-gym:treadmill', function()
-  local hasItem = QBCore.Functions.HasItem(config.GymPass.item)
-  if hasItem then
-    Treadmill()
+RegisterNetEvent('dynyx-gym:threadmill', function()
+  local tempPass = exports.ox_inventory:Search('count', 'gympass')
+  local lifePass = exports.ox_inventory:Search('count', 'life_gympass')
+  if tempPass > 0 or lifePass > 0 then
+    Threadmill()
   else
     QBCore.Functions.Notify("You dont have a membership pass", "error")
   end
 end)
 
 RegisterNetEvent('dynyx-gym:chinup', function()
-  local hasItem = QBCore.Functions.HasItem(config.GymPass.item)
-  if hasItem then
+  local tempPass = exports.ox_inventory:Search('count', 'gympass')
+  local lifePass = exports.ox_inventory:Search('count', 'life_gympass')
+  if tempPass > 0 or lifePass > 0 then
     Chinup()
   else
     QBCore.Functions.Notify("You dont own a membership!", "error")
@@ -129,8 +131,9 @@ RegisterNetEvent('dynyx-gym:chinup', function()
 end)
 
 RegisterNetEvent('dynyx-gym:chinup2', function()
-  local hasItem = QBCore.Functions.HasItem(config.GymPass.item)
-  if hasItem then
+  local tempPass = exports.ox_inventory:Search('count', 'gympass')
+  local lifePass = exports.ox_inventory:Search('count', 'life_gympass')
+  if tempPass > 0 or lifePass > 0 then
     Chinup2()
   else
     QBCore.Functions.Notify("You dont own a membership!", "error")
@@ -138,8 +141,9 @@ RegisterNetEvent('dynyx-gym:chinup2', function()
 end)
 
 RegisterNetEvent('dynyx-gym:liftweights', function()
-  local hasItem = QBCore.Functions.HasItem(config.GymPass.item)
-  if hasItem then
+  local tempPass = exports.ox_inventory:Search('count', 'gympass')
+  local lifePass = exports.ox_inventory:Search('count', 'life_gympass')
+  if tempPass > 0 or lifePass > 0 then
     LiftWeight()
   else
     QBCore.Functions.Notify("You dont own a membership!", "error")
@@ -147,8 +151,9 @@ RegisterNetEvent('dynyx-gym:liftweights', function()
 end)
 
 RegisterNetEvent('dynyx-gym:liftweights2', function()
-  local hasItem = QBCore.Functions.HasItem(config.GymPass.item)
-  if hasItem then
+  local tempPass = exports.ox_inventory:Search('count', 'gympass')
+  local lifePass = exports.ox_inventory:Search('count', 'life_gympass')
+  if tempPass > 0 or lifePass > 0 then
     LiftWeight2()
   else
     QBCore.Functions.Notify("You dont own a membership!", "error")
@@ -156,8 +161,9 @@ RegisterNetEvent('dynyx-gym:liftweights2', function()
 end)
 
 RegisterNetEvent('dynyx-gym:yoga', function()
-  local hasItem = QBCore.Functions.HasItem(config.GymPass.item)
-  if hasItem then
+  local tempPass = exports.ox_inventory:Search('count', 'gympass')
+  local lifePass = exports.ox_inventory:Search('count', 'life_gympass')
+  if tempPass > 0 or lifePass > 0 then
     Yoga()
   else
     QBCore.Functions.Notify("You dont own a membership!", "error")
@@ -190,8 +196,8 @@ function ChinupsAnim2()
 end
 
 
-function Treadmill()
-  QBCore.Functions.Progressbar('random_task', 'Jogging', config.Skills.ThreadMills.ProgressbarDuration, false, false, {
+function Threadmill()
+  QBCore.Functions.Progressbar('random_task', 'Jogging', math.random(1000,2500), false, false, {
       disableMovement = true,
       disableCarMovement = true,
       disableMouse = false,
@@ -219,28 +225,13 @@ function Treadmill()
           TriggerServerEvent('hud:server:GainStress', config.Skills.ThreadMills.Minigame.FailedMinigameStress)
         end
       end, config.Skills.ThreadMills.Minigame.circles, config.Skills.ThreadMills.Minigame.time)
-      --------------------------------------------------------------------------------------------   qb-lock section
-    elseif config.Minigame == 'qb-lock' then
-      local success = exports['qb-lock']:StartLockPickCircle(config.Skills.ThreadMills.Minigame.circles, config.Skills.ThreadMills.Minigame.time, success)
-      if success then
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-        exports["mz-skills"]:UpdateSkill(config.Skills.ThreadMills.skill, config.Skills.ThreadMills.amount)
-        Wait(2000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.ThreadMills.Stress)
-        TriggerEvent('inventory:client:busy:status', false)
-      else --failed
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-        QBCore.Functions.Notify("That did not feel too good..", "error")
-        Wait(3000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.ThreadMills.Minigame.FailedMinigameStress)
       end
-    end
-  end)
-end
+    end)
+  end
 
 
 function Chinup()
-  QBCore.Functions.Progressbar('random_task', 'Doing Chin-ups', config.Skills.Chinups.ProgressbarDuration, false, false, {
+  QBCore.Functions.Progressbar('random_task', 'Doing Chin-ups', math.random(6000,12000), false, false, {
       disableMovement = true,
       disableCarMovement = true,
       disableMouse = false,
@@ -270,28 +261,13 @@ function Chinup()
           TriggerServerEvent('hud:server:GainStress', config.Skills.Chinups.Minigame.FailedMinigameStress)
         end
       end, config.Skills.Chinups.Minigame.circles, config.Skills.Chinups.Minigame.time)
-      --------------------------------------------------------------------------------------------   qb-lock section
-    elseif config.Minigame == 'qb-lock' then
-      local success = exports['qb-lock']:StartLockPickCircle(config.Skills.Chinups.Minigame.circles, config.Skills.Chinups.Minigame.time, success)
-      if success then
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-        exports["mz-skills"]:UpdateSkill(config.Skills.Chinups.skill, config.Skills.Chinups.amount)
-        Wait(2000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.Chinups.Stress)
-        TriggerEvent('inventory:client:busy:status', false)
-      else --failed
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-        QBCore.Functions.Notify("That did not feel too good..", "error")
-        Wait(3000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.Chinups.Minigame.FailedMinigameStress)
-      end
     end
   end)
 end
 
 
 function Chinup2()
-  QBCore.Functions.Progressbar('random_task', 'Doing Chin-ups', config.Skills.Chinups.ProgressbarDuration, false, false, {
+  QBCore.Functions.Progressbar('random_task', 'Doing Chin-ups', math.random(6000,12000), false, false, {
       disableMovement = true,
       disableCarMovement = true,
       disableMouse = false,
@@ -321,21 +297,6 @@ function Chinup2()
           TriggerServerEvent('hud:server:GainStress', config.Skills.Chinups.Minigame.FailedMinigameStress)
         end
       end, config.Skills.Chinups.Minigame.circles, config.Skills.Chinups.Minigame.time)
-      --------------------------------------------------------------------------------------------   qb-lock section
-    elseif config.Minigame == 'qb-lock' then
-      local success = exports['qb-lock']:StartLockPickCircle(config.Skills.Chinups.Minigame.circles, config.Skills.Chinups.Minigame.time, success)
-      if success then
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-        exports["mz-skills"]:UpdateSkill(config.Skills.Chinups.skill, config.Skills.Chinups.amount)
-        Wait(2000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.Chinups.Stress)
-        TriggerEvent('inventory:client:busy:status', false)
-      else --failed
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-        QBCore.Functions.Notify("That did not feel too good..", "error")
-        Wait(3000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.Chinups.Minigame.FailedMinigameStress)
-      end
     end
   end)
 end
@@ -344,7 +305,7 @@ TaskPlayAnim(ped, "world_human_muscle_free_weights", "base", 1.0, 1.0, 5000, 8)
 
 function LiftWeight()
   local ped = PlayerPedId()
-  QBCore.Functions.Progressbar('random_task', 'Lifting Weights', config.Skills.LiftWeights.ProgressbarDuration, false, false, {
+  QBCore.Functions.Progressbar('random_task', 'Lifting Weights', math.random, false, false, {
       disableMovement = true,
       disableCarMovement = true,
       disableMouse = false,
@@ -376,25 +337,6 @@ function LiftWeight()
           TriggerServerEvent('hud:server:GainStress', config.Skills.LiftWeights.Minigame.FailedMinigameStress)
         end
       end, config.Skills.LiftWeights.Minigame.circles, config.Skills.LiftWeights.Minigame.time)
-      --------------------------------------------------------------------------------------------   qb-lock section
-    elseif config.Minigame == 'qb-lock' then
-      local success = exports['qb-lock']:StartLockPickCircle(config.Skills.LiftWeights.Minigame.circles, config.Skills.LiftWeights.Minigame.time, success)
-      if success then
-        -- Stops the animation
-        TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-        exports["mz-skills"]:UpdateSkill(config.Skills.LiftWeights.skill, config.Skills.LiftWeights.amount)
-        Wait(2000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.LiftWeights.Stress)
-        TriggerEvent('inventory:client:busy:status', false)
-      else --failed
-        -- Stops the animation
-        TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-        QBCore.Functions.Notify("That did not feel too good..", "error")
-        Wait(3000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.LiftWeights.Minigame.FailedMinigameStress)
-      end
     end
   end)
 end
@@ -431,23 +373,6 @@ function LiftWeight2()
           TriggerServerEvent('hud:server:GainStress', config.Skills.LiftWeights.Minigame.FailedMinigameStress)
         end
       end, config.Skills.LiftWeights.Minigame.circles, config.Skills.LiftWeights.Minigame.time)
-      --------------------------------------------------------------------------------------------   qb-lock section
-    elseif config.Minigame == 'qb-lock' then
-      local success = exports['qb-lock']:StartLockPickCircle(config.Skills.LiftWeights.Minigame.circles, config.Skills.LiftWeights.Minigame.time, success)
-      if success then
-        TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-        exports["mz-skills"]:UpdateSkill(config.Skills.LiftWeights.skill, config.Skills.LiftWeights.amount)
-        Wait(2000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.LiftWeights.Stress)
-        TriggerEvent('inventory:client:busy:status', false)
-      else --failed
-        TriggerEvent('animations:client:EmoteCommandStart', {"jog"}) 
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"}) 
-        QBCore.Functions.Notify("That did not feel too good..", "error")
-        Wait(3000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.LiftWeights.Minigame.FailedMinigameStress)
-      end
     end
   end)
 end
@@ -483,21 +408,6 @@ function Yoga()
           TriggerServerEvent('hud:server:GainStress', config.Skills.Yoga.Minigame.FailedMinigameStress)
         end
       end, config.Skills.Yoga.Minigame.circles, config.Skills.Yoga.Minigame.time)
-      --------------------------------------------------------------------------------------------   qb-lock section
-    elseif config.Minigame == 'qb-lock' then
-      local success = exports['qb-lock']:StartLockPickCircle(config.Skills.Yoga.Minigame.circles, config.Skills.Yoga.Minigame.time, success)
-      if success then
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        exports["mz-skills"]:UpdateSkill(config.Skills.Yoga.skill, config.Skills.Yoga.amount)
-        Wait(2000)
-        TriggerServerEvent('hud:server:RelieveStress', config.Skills.Yoga.Stress)
-        TriggerEvent('inventory:client:busy:status', false)
-      else --failed
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        QBCore.Functions.Notify("That did not feel too good..", "error")
-        Wait(3000)
-        TriggerServerEvent('hud:server:GainStress', config.Skills.Yoga.Minigame.FailedMinigameStress)
-      end
     end
   end)
 end
